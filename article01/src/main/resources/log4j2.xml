@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO" shutdownHook="disable">
+	<Properties>
+		<Property name="log4j2.contextSelector">org.apache.logging.log4j.core.async.AsyncLoggerContextSelector</Property>
+	</Properties>
+	<Filter type="ThresholdFilter" level="info"/>
+	<Appenders>
+		<Console name="console" target="SYSTEM_OUT">
+			<JsonLayout compact="true" complete="false" properties="true" eventEol="true" />
+		</Console>
+		<RollingFile name="log_file" fileName="article01.log" filePattern="article01-%i.log.gz">
+			<JsonLayout compact="true" complete="false" properties="true" eventEol="true" />
+			<DefaultRolloverStrategy max="5"/>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="50 MB"/>
+			</Policies>
+		</RollingFile>
+		<Async name="async">
+			<AppenderRef ref="console"/>
+			<AppenderRef ref="log_file"/>
+		</Async>
+	</Appenders>
+	<Loggers>
+		<AsyncLogger name="org.jboss.logging" level="warn" additivity="false" includeLocation="true">
+			<appender-ref ref="async"/>
+		</AsyncLogger>
+		<AsyncLogger name="org.xnio" level="warn" additivity="false" includeLocation="true">
+			<appender-ref ref="async"/>
+		</AsyncLogger>
+		<AsyncLogger name="io.undertow" level="warn" additivity="false" includeLocation="true">
+			<appender-ref ref="async"/>
+		</AsyncLogger>
+		<AsyncLogger name="io" level="info" additivity="false" includeLocation="true">
+			<appender-ref ref="async"/>
+		</AsyncLogger>
+		<AsyncRoot level="info" additivity="false" includeLocation="true">
+			<AppenderRef ref="async"/>
+		</AsyncRoot>
+	</Loggers>
+</Configuration>

@@ -1,0 +1,41 @@
+######### Common directories
+/build/
+/classes/
+/out/
+**/out/
+client/build
+client/out
+.idea
+
+########## Java
+# Package Files #
+*.jar
+*.war
+*.ear
+
+########## IntelliJ IDEA
+.idea
+*.iml
+*.ipr
+*.iws
+
+##########  Eclipse
+.settings
+*.project
+.classpath
+
+########## Gradle
+.gradle
+# Ignore Gradle GUI config
+gradle-app.setting
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+# Cache of project
+.gradletasknamecache
+
+########## Secrets
+*.key
+
+########## Logs
+*.log
+*.log.gz
