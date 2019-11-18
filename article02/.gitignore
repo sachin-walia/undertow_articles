@@ -6,27 +6,15 @@
 client/build
 client/out
 .idea
-**/.idea
-**/.gradle
-**/build
-**/*.log
 
 ########## Java
-# Package Files #
 *.jar
-*.war
-*.ear
 
 ########## IntelliJ IDEA
 .idea
 *.iml
 *.ipr
 *.iws
-
-##########  Eclipse
-.settings
-*.project
-.classpath
 
 ########## Gradle
 .gradle
@@ -36,9 +24,6 @@ gradle-app.setting
 !gradle-wrapper.jar
 # Cache of project
 .gradletasknamecache
-
-########## Secrets
-*.key
 
 ########## Logs
 *.log

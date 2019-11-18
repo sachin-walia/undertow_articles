@@ -8,8 +8,9 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.github.jengelman.gradle.plugins:shadow:5.2.0"
-        classpath "com.github.ben-manes:gradle-versions-plugin:0.27.0"
+        classpath "com.github.jengelman.gradle.plugins:shadow:4.0.4"
+        classpath "com.github.ben-manes:gradle-versions-plugin:0.20.0"
+        classpath "net.ltgt.gradle:gradle-apt-plugin:0.21"
     }
 }
 
@@ -18,6 +19,7 @@ apply plugin: "idea"
 apply plugin: "application"
 apply plugin: "com.github.ben-manes.versions"
 apply plugin: "com.github.johnrengelman.shadow"
+apply plugin: "net.ltgt.apt-idea"
 
 repositories {
     mavenLocal()
@@ -26,8 +28,8 @@ repositories {
     maven { url 'https://oss.jfrog.org/oss-snapshot-local' }
 }
 
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 configurations {
     integrationTestCompile.extendsFrom testCompile
@@ -37,25 +39,27 @@ sourceSets {
     main.java.srcDirs += 'src/main/java'
 }
 
-def jacksonVersion='2.10.1'
-def log4jVersion='2.12.1'
+def jacksonVersion='2.9.+'
+def log4jVersion='2.11.+'
 
-mainClassName = "com.undertow_articles.article01.Application"
+mainClassName = "com.undertow_articles.article02.Application"
 
 shadowJar {
-    archiveBaseName = 'article01'
+    archiveBaseName = 'article02'
     archiveClassifier = null
     archiveVersion = null
     mergeServiceFiles()
 }
 
 dependencies {
-    compile "io.undertow:undertow-core:2.0.28.Final"
+    annotationProcessor "com.google.dagger:dagger-compiler:2.25.2"
+    compile "com.google.dagger:dagger:2.25.2"
+    compile "io.undertow:undertow-core:2.0.17.Final"
 
     compile "javax.inject:javax.inject:1"
     compile "commons-io:commons-io:2.6"
-    compile "org.apache.commons:commons-lang3:3.9"
-    compile "org.apache.commons:commons-collections4:4.4"
+    compile "org.apache.commons:commons-lang3:3.+"
+    compile "org.apache.commons:commons-collections4:4.3"
 
     //json parsing
     compile "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
